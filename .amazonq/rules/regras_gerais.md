@@ -1,0 +1,1 @@
+estamos usando o amazon nova micro
