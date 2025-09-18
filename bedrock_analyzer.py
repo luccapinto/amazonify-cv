@@ -1,4 +1,5 @@
 import boto3
+from botocore.exceptions import ClientError
 import json
 
 def analisar_cv_com_bedrock(texto_cv, texto_vaga):
@@ -13,8 +14,10 @@ def analisar_cv_com_bedrock(texto_cv, texto_vaga):
         # Create a Bedrock client
         # Substitua 'us-east-1' pela região da AWS que você configurou
         bedrock_client = boto3.client(service_name='bedrock-runtime', region_name='us-east-1')
+        
         # Model ID
-        model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
+        # O model ID foi atualizado para o que você está usando agora.
+        model_id = "amazon.nova-micro-v1:0"
 
         # Prompt engineering
         prompt = f"""
@@ -34,37 +37,27 @@ def analisar_cv_com_bedrock(texto_cv, texto_vaga):
         4.  Formate sua resposta final usando Markdown para garantir a legibilidade.
         """
 
-        # Create the request body
-        body = json.dumps({
-            "anthropic_version": "bedrock-2023-05-31",
-            "max_tokens": 4096,
-            "messages": [
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": prompt
-                        }
-                    ]
-                }
-            ]
-        })
+        # Monta a mensagem para a API converse
+        conversation = [
+            {
+                "role": "user",
+                "content": [{"text": prompt}],
+            }
+        ]
 
-        # Invoke the model
-        response = bedrock_client.invoke_model(
-            body=body,
+        # Invoca o modelo usando a API converse
+        response = bedrock_client.converse(
             modelId=model_id,
-            accept='application/json',
-            contentType='application/json'
+            messages=conversation,
+            # Configurações de inferência, como no exemplo
+            inferenceConfig={"maxTokens": 4096, "temperature": 0.5, "topP": 0.9},
         )
 
-        # Parse the response
-        response_body = json.loads(response.get('body').read())
-        analysis = response_body['content'][0]['text']
+        # Extrai o texto da resposta
+        analysis = response["output"]["message"]["content"][0]["text"]
 
         return analysis
 
-    except Exception as e:
+    except (ClientError, Exception) as e:
         print(f"Erro ao analisar com o Bedrock: {e}")
         return f"Ocorreu um erro ao processar a sua solicitação. Verifique as configurações e credenciais da AWS. Erro: {e}"
