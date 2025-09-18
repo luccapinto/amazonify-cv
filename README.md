@@ -4,8 +4,8 @@
 "Amazonify CV" é uma ferramenta de IA que otimiza currículos para vagas na Amazon. A aplicação analisa um currículo e uma descrição de vaga, fornecendo feedback detalhado com foco nos Princípios de Liderança da Amazon, e sugere melhorias concretas usando o método STAR.
 
 ## Screenshot da Aplicação
-<img width="595" height="723" alt="image" src="https://github.com/user-attachments/assets/505c5265-f121-4321-84e3-1c4fa52291d0" />
-<img width="919" height="734" alt="image" src="https://github.com/user-attachments/assets/0be6bda7-b2b2-4fa2-ad7d-48fbffdf79ce" />
+<img width="1240" height="719" alt="image" src="https://github.com/user-attachments/assets/a068cc19-2e71-40ae-b3a1-880967638b94" />
+<img width="1264" height="756" alt="image" src="https://github.com/user-attachments/assets/a609b3c1-000e-4ee0-b32c-2cd5491fa9e3" />
 
 
 ## Arquitetura
@@ -22,7 +22,7 @@ graph TD
     end
 
     C --> B;
-    B --> A[Resultado];
+    B --> A[Usuário];
 ```
 
 ## Prompts Utilizados
@@ -42,6 +42,9 @@ Este projeto foi desenvolvido com o auxílio do Amazon Q Developer. Abaixo estã
 
 ### Prompt 5: Arquivos de IaC
 "Adicione os arquivos de infraestrutura IAC ao meu projeto para que seja possivel fazer deploy na AWS"
+
+### Prompt 6: Melhorias finais de desing
+"Melhore o texto da pagina do streamlit para fazer um branding melhor da Amazon AWS. Quero que essa plataforma seja uma IA exclusiva para preparar os curriculos para as vagas da AWS"
 
 ## Como Rodar
 Para rodar a aplicação localmente, siga os seguintes passos:
