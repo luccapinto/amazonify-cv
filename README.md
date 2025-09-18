@@ -4,7 +4,9 @@
 "Amazonify CV" é uma ferramenta de IA que otimiza currículos para vagas na Amazon. A aplicação analisa um currículo e uma descrição de vaga, fornecendo feedback detalhado com foco nos Princípios de Liderança da Amazon, e sugere melhorias concretas usando o método STAR.
 
 ## Screenshot da Aplicação
-(Aqui você deve adicionar o screenshot da sua aplicação rodando)
+<img width="595" height="723" alt="image" src="https://github.com/user-attachments/assets/505c5265-f121-4321-84e3-1c4fa52291d0" />
+<img width="919" height="734" alt="image" src="https://github.com/user-attachments/assets/0be6bda7-b2b2-4fa2-ad7d-48fbffdf79ce" />
+
 
 ## Arquitetura
 A arquitetura da aplicação é serverless, focada em simplicidade e escalabilidade. O frontend é construído com Streamlit e o backend utiliza o poder do Amazon Bedrock para a análise de IA.
@@ -12,19 +14,18 @@ A arquitetura da aplicação é serverless, focada em simplicidade e escalabilid
 ```mermaid
 graph TD
     A[Usuário] --> B{Frontend: Streamlit};
-    B --> C[Backend: AWS SDK (Boto3)];
-    C --> D[Amazon Bedrock];
-    D -- Responde com Análise de CV --> C;
-    C -- Retorna Análise --> B;
-    B -- Exibe Resultado --> A;
-
+    B --> C[Backend: AWS SDK];
+    
     subgraph "AWS Cloud"
-        C
-        D
+        C --> D[Amazon Bedrock];
+        D -- Análise do CV --> C;
     end
+
+    C --> B;
+    B --> A[Resultado];
 ```
 
-## Prompts Utilizados (Simulação)
+## Prompts Utilizados
 Este projeto foi desenvolvido com o auxílio do Amazon Q Developer. Abaixo estão exemplos dos tipos de prompts que foram utilizados para gerar o código:
 
 ### Prompt 1: Geração da Estrutura Inicial do Streamlit
@@ -38,6 +39,9 @@ Este projeto foi desenvolvido com o auxílio do Amazon Q Developer. Abaixo estã
 
 ### Prompt 4: Tratamento de Erros
 "Adicione um bloco try/except na função analisar_cv_com_bedrock para capturar ClientError do botocore e exceções genéricas. Em caso de erro, a função deve imprimir o erro no console e retornar uma mensagem amigável para o usuário, como 'Ocorreu um erro ao processar a sua solicitação...'"
+
+### Prompt 5: Arquivos de IaC
+"Adicione os arquivos de infraestrutura IAC ao meu projeto para que seja possivel fazer deploy na AWS"
 
 ## Como Rodar
 Para rodar a aplicação localmente, siga os seguintes passos:
