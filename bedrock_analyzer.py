@@ -11,8 +11,8 @@ def analisar_cv_com_bedrock(texto_cv, texto_vaga):
     """
     try:
         # Create a Bedrock client
-        bedrock_client = boto3.client(service_name='bedrock-runtime')
-
+        # Substitua 'us-east-1' pela região da AWS que você configurou
+        bedrock_client = boto3.client(service_name='bedrock-runtime', region_name='us-east-1')
         # Model ID
         model_id = "anthropic.claude-3-sonnet-20240229-v1:0"
 
